@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+    .content-section ul {
+        text-align: left;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="content-section" style="max-width: 500px; margin: auto;">
+    <form method="POST" autocomplete="on" style="background-color: rgba(240, 255, 255, 0.5);border-radius: 15px; padding: 5px 15px 0;">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="mb-4 text-center">Регистрация</legend>
+            <div>
+                <div id="div_id_email" class="form-group mb-2">
+                    <h6 for="id_email" class=" requiredField text-center">Адрес электронной почты</h6>
+                    <div>
+                        <input type="email" name="email" maxlength="100" autocomplete="username" class="emailinput form-control" required id="id_email">
+                        <small id="hint_id_email" class="form-text text-muted" style="line-height: 1.3rem;margin: 0.25rem 0 0 0.45rem;">Именем пользователя станет строка до знака @</small>
+                    </div>
+                </div>
+                <div id="div_id_password" class="form-group mb-2">
+                    <h6 for="id_password" class=" requiredField text-center">Пароль</h6>
+                    <div>
+                        <input type="password" name="password1" maxlength="100" autocomplete="new-password" class="textinput textInput form-control" required id="id_password">
+                        <small id="hint_id_password" class="form-text text-muted">
+                            <ul style="padding: 0;">
+                                <li style="line-height: 1.3rem;margin: 0.25rem 0 0 0.45rem;">Ваш пароль должен содержать от 8 до 100 символов.</li>
+                                <li style="line-height: 1.3rem;margin-left: 0.45rem;">Пароль не должен быть слишком простым и распространенным.</li>
+                                <li style="line-height: 1.3rem;margin-left: 0.45rem;">Пароль не может состоять только из цифр.</li>
+                                <li style="line-height: 1.3rem;margin-left: 0.45rem;">Пароль не может быть таким же, как в поле.</li>
+                            </ul>
+                        </small>
+                    </div>
+                </div>
+                <div id="div_id_password_repeat" class="form-group mb-2">
+                    <h6 for="id_password_repeat" class=" requiredField text-center">Подтверждение пароля</h6>
+                    <div>
+                        <input type="password" name="password2" maxlength="100" class="textinput textInput form-control" required id="id_password_repeat">
+                        <small style="margin: 0.25rem 0 0 0.45rem;" id="hint_id_password_repeat" class="form-text text-muted">Введите пароль ещё раз.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-outline-info my-3" style="display: block;width: 250px; margin: auto;" type="submit">Зарегистрироваться</button>
+            </div>
+        </fieldset>
+    </form>
+    <div>
+        <small class="text-muted" style="display: block; margin-left: 15px;">
+            Есть аккаунт? <a class="ml-2" href="{% url 'login' %}">Войдите</a>
+        </small>
+    </div>
+</div>
+{% endblock content %}

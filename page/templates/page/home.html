@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная
+{% endblock title %}
+
+{% block styles %}
+<style>
+    .start {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .end {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .cards {
+        display: table;
+        height: 250px;
+        width: 450px;
+    }
+    .card1 {
+        background-color: rgba(240, 255, 255, 0.5);
+        border-radius: 15px;
+        border-top-left-radius: 150px;
+        border-bottom-right-radius: 150px;
+    }
+    .card2 {
+        margin: 25px 0;
+        background-color: rgba(240, 255, 255, 0.5);
+        border-radius: 15px;
+        border-top-left-radius: 150px;
+        border-bottom-left-radius: 150px;
+    }
+    .card3 {
+        background-color: rgba(240, 255, 255, 0.5);
+        border-radius: 15px;
+        border-top-right-radius: 150px;
+        border-bottom-left-radius: 150px;
+    }
+    p {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        padding: 50px;
+        line-height: 45px;
+        letter-spacing: 1.5px;
+    }
+
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="start">
+    <div class="cards card1 left">
+        <div class="topleft"></div>
+        <div class="bottomright"></div>
+        <p><u>Altprogrammer</u><br>это команда программистов, которая <u>напишет</u> код <b>вместо вас</b></p>
+    </div>        
+</div>
+<div class="end">
+    <div class="cards card2 right">
+        <div class="tophalfleft"></div>
+        <div class="tophalfright"></div>
+        <p>Просто перейдите на вкладку <u>услуги</u>, выберите нужную, опишите техническое задание, требования и нажмите <u>заказать</u></p>
+    </div>
+</div>
+<div class="start">
+    <div class="cards card3 left">
+        <div class="bottomleft"></div>
+        <div class="topright"></div>
+        <p>Программист объявит <u>цену</u>, и после вашей оплаты, начнёт работу. <u>Следите</u> за процессом в личном кабинете</p>
+    </div>        
+</div>
+{% endblock content %}
