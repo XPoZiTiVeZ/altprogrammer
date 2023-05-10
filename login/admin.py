@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, CustomUser
+from .models import Profile, CustomUser, Chats, ChatMessages
 from .forms import CustomCreationForm, CustomUserChangeForm
 from django.contrib.auth.admin import UserAdmin
 
@@ -10,8 +10,8 @@ class CustomUserAdmin(UserAdmin):
     list_display = ('email', 'is_staff', 'is_active', 'is_email_verified', 'last_login', 'date_joined',)
     list_filter = ('email', 'is_staff', 'is_active', 'is_email_verified',)
     fieldsets = (
-        (None, {'fields': ('email', 'password',)}),
-        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_email_verified',)}),
+        (None, {'fields': ('name', 'email', 'password',)}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_email_verified', 'is_worker', )}),
     )
     add_fieldsets = (
         (None, {
@@ -24,3 +24,5 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Profile)
+admin.site.register(Chats)
+admin.site.register(ChatMessages)

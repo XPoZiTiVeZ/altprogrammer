@@ -1,0 +1,13 @@
+{% extends 'login/profile.html' %}
+
+{% block menucontent %}
+<div class="orders">
+    {% for order in orders %}
+    <div class="card mb-4">
+        <h4>Ваш заказ {{ order.title|lower }}</h4>
+        <p>{{ order.additional }}</p>
+        <p style="margin-bottom: 0">Открыть <a href="{% url 'profile-chats' id=order.id %}">чат</a> по заказу</a></p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -22,7 +22,7 @@
         justify-content: space-between;
         border-bottom: 1px solid gray;
     }
-    .profile div{
+    .profile div {
         padding: 10px;
     }
     .menu a {
@@ -46,14 +46,30 @@
             border-top: 1px solid gray;
         }
     }
+    .modal-footer {
+        justify-content: start;
+    }
+    .modal-footer button {
+        margin-left: auto;
+    }
+    .modal-additional textarea {
+        background: none;
+        border: 1px solid gray;
+        height: 250px;
+    }
+    .modal-additional textarea:focus {
+        background: none;
+    }
 </style>
+{% block addstyles %}
+{% endblock addstyles %}
 {% endblock styles %}
 
 {% block content %}
 <div class="content-section">
     <div class="media row">
         <div class="media-body col-auto col-md-12">
-            <h2 class="account-heading">{{ user.email }}</h2>
+            <h2 class="account-heading">Личный кабинет</h2>
         </div>
         <div class="col-auto col-md-12">
             <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="false" aria-controls="collapse">
@@ -64,15 +80,29 @@
     <div class="profile row">
         <div class="menu collapse d-md-block col-md-2" id="collapse">
             <ul>
-                <li><a href="{% url 'profile' content='orders' %}">Заказы</a></li>
-                <li><a href="{% url 'profile' content='messages' %}">Чаты</a></li>
+                <li><a href="{% url 'profile' %}">Об аккаунте</a></li>
+                <li><a href="{% url 'profile-orders' %}">Заказы</a></li>
+                {% if chats %}
+                <li>
+                    <div class="dropdown p-0">
+                        <button class="btn dropdown-toggle p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">Чаты</button>
+                        <ul class="dropdown-menu">
+                            {% block chatlist %}
+                            {% endblock chatlist %}
+                        </ul>
+                    </div>
+                </li>
+                {% else %}
+                <li><a href="{% url 'profile-chats' %}">Чаты</a></li>
+                {% endif %}
             </ul>
         </div>
         <div class="col-md-auto p-0">
             <hr>
         </div>
         <div class="menu-section col-md">
-            {{ oblast}}
+            {% block menucontent %}
+            {% endblock menucontent %}
         </div>
     </div>
 </div>

@@ -1,0 +1,61 @@
+{% extends 'login/profile.html' %}
+
+{% block addstyles %}
+<style>
+    .card {
+        width: auto;
+    }
+    .staff {
+        display: flex;
+        justify-content: flex-start;
+    }
+    .customer {
+        display: flex;
+        justify-content: flex-end;
+    }
+    small {
+        font-size: small;
+    }
+    .chat textarea {
+        background: none;
+        border: 1px solid gray;
+        width: 100%;
+        height: 150px;
+        resize: none;
+    }
+</style>
+{% endblock %}
+
+{% block chatlist %}
+    {% for chat in chats %}
+    <li><a class="dropdown-item" href="{% url 'profile-chats' id=chat.id %}">{{ chat.title|lower }} {{ chat.time_created }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block menucontent %}
+<div class="chat">
+    {% if noorders %}
+    <p>Вы ещё не делали никаких заказов</p>
+    {% else %}
+    <div id="chat">
+        <h4 class="text-center">Чат по заказу {{ this_chat.title|lower }} от {{ this_chat.time_created }}</h4>
+        {% for chatmessage in chatmessages %}
+        <div class="{{ chatmessage.sendertype }}">
+            <div class="card">
+                <h4>{{ chatmessage.sender }} <small>{{ chatmessage.sendertype }}</small></h4>
+                <p>{{ chatmessage.message|linebreaksbr }}</p>
+                <small>{{ chatmessage.time }}</small>
+            </div>
+        </div> 
+        {% endfor %}
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {{ form.as_p }}
+            <button class="btn btn-primary ml-auto" type="submit">Отправить</button>
+        </fieldset>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'login/profile.html' %}
+
+{% block menucontent %}
+<ul>
+    <li><p>Ваша почта <b>{{ user.email }}</b></p></li>
+    <li><p>Ваше имя <a href="{% url 'profile-changename' %}" title="изменить имя"><u><b>{{ user.name }}</b></u></a></p></li>
+    <li><p><a href="{% url 'profile-cashin' %}" title="Пополнить баланс"><u><b>{{ user.vmoney }} рублей</b></u></a> на вашем балансе</p></li>
+</ul>
+{% endblock menucontent %}

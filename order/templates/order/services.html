@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Услуги
+{% endblock title %}
+
+{% block styles %}
+<style>
+    h4 {
+        text-align: center;
+    }
+    p {
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    .cards {
+        justify-content: space-around;
+    }
+    .card {
+        display: block;
+        padding: 10px;
+        margin-bottom: 50px;
+        height: 200px;
+        width: 200px;
+        background-color: rgba(240, 255, 255, 0.5);
+        border-radius: 15px;
+    }
+    .modal-content {
+        background-color: rgba(240, 255, 255, 0.95);
+        max-width: 950px;
+        height: 500px;
+    }
+    .modal-footer p {
+        margin-right: auto;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="row cards">
+    {% for service in services %}
+    <a class="col-12 col-md-6 col-lg-4 col-xl-3 card" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal{{ service.id }}">
+        <h4>{{ service.title }}</h4>
+        <p>{{ service.lang }}</p>
+        <p>{{ service.desc }}</p>
+        <p>От {{ service.mincost }} рублей</p>
+    </a>
+    <div class="modal fade" id="exampleModal{{ service.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ service.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ service.title }} {{ service.lang }}</h1>
+                </div>
+                <div class="modal-body">
+                {{ service.fulldesc|linebreaksbr }}
+                </div>
+                <div class="modal-footer">
+                    <p>От {{ service.mincost }} рублей</p>
+                    <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</a>
+                    <a type="button" class="btn btn-primary" href="{% url 'neworder' id=service.id %}">Заказать</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

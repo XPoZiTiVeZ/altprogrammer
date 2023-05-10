@@ -1,0 +1,17 @@
+{% extends 'login/profile.html' %}
+
+{% block menucontent %}
+<form method="POST">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <div class="modal-content">
+            <h4>Изменение имени</h4>
+            <p>Введите новое имя</p>
+            {{ form.as_p }}
+            <div class="modal-footer">
+                <button class="btn btn-primary ml-auto" type="submit">Изменить</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+{% endblock %}

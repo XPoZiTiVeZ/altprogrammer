@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+<style>
+    #neworderform {
+        background-color: rgb(255, 255, 255, 0.7);
+        padding: 20px;
+        border-radius: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="neworderform">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">{{ service.title }} {{ service.lang }}</h1>
+                </div>
+                <div class="modal-body">
+                {{ service.fulldesc|linebreaksbr }}
+                </div>
+                <div class="modal-additional">
+                    <p>Описание задания</p>
+                    {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <p class="me-auto">От {{ service.mincost }} рублей</p>
+                    <button class="btn btn-primary ml-auto" type="submit">Заказать</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}
