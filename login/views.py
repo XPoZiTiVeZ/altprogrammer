@@ -5,13 +5,13 @@ from django.core.serializers import serialize
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from .models import CustomUser, Chats, ChatMessages
+from .models import CustomUser
 from .backends import CustomBackend
-from order.models import Services, Orders
+from order.models import Services, Orders, Chats, ChatMessages
 from .forms import ChangeNameForm, SendMessage
 from order.forms import OrderForm
 from datetime import datetime
-from random import random
+import base64
 
 def register(request):
     if not request.user.is_authenticated:
@@ -79,6 +79,9 @@ def login_user(request):
 
 @login_required
 def profile(request):
+    if request.user.is_worker:
+        print(base64.urlsafe_b64encode(request.user.email.encode("utf-8")).decode('utf-8'))
+        return render(request, 'login/info.html', {'code':base64.urlsafe_b64encode(request.user.email.encode("utf-8")).decode('utf-8')})
     return render(request, 'login/info.html')
 
 @login_required
@@ -109,7 +112,7 @@ def profile_chats(request, id=None):
                 chat = Chats.objects.get(id = id)
                 chat.last_message = datetime.now()
                 chat.save()
-                chatmessage = ChatMessages.objects.create(chat = chat.id, message = request.POST.get('message'), sender = request.user.email, sendertype = 'staff' if request.user.is_worker else 'staff', receiver = Orders.objects.get(id = id).staff if request.user.is_worker else Orders.objects.get(id = id).user)
+                chatmessage = ChatMessages.objects.create(chat = chat.id, message = request.POST.get('message'), sender = request.user.email, sendertype = 'staff' if request.user.is_worker else 'user', receiver = request.user.email if Orders.objects.get(id = id).user == request.user.email else Orders.objects.get(id = id).staff)
                 chatmessage.save()
                 return redirect('profile-chats', id = id)
             chats = Chats.objects.filter(user = request.user.email).order_by('-last_message')

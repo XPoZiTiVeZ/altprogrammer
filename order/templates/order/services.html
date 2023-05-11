@@ -57,7 +57,11 @@
                 <div class="modal-footer">
                     <p>От {{ service.mincost }} рублей</p>
                     <a type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</a>
+                    {% if code %}
+                    <a type="button" class="btn btn-primary" href="{% url 'neworder' id=service.id %}?code={{ code }}">Заказать</a>
+                    {% else %}
                     <a type="button" class="btn btn-primary" href="{% url 'neworder' id=service.id %}">Заказать</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
